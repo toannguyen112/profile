@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#dfc26a" />
+      <stop offset="50%" stop-color="#c9a84c" />
+      <stop offset="100%" stop-color="#9e7f2b" />
+    </linearGradient>
+    <linearGradient id="borderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c9a84c" stop-opacity="0.5" />
+      <stop offset="100%" stop-color="#c9a84c" stop-opacity="0.1" />
+    </linearGradient>
+  </defs>
+  <rect width="96" height="96" x="2" y="2" rx="22" fill="#0a0a0a" stroke="url(#borderGrad)" stroke-width="2" />
+  <text x="50" y="70" font-family="'Cormorant Garamond', Georgia, serif" font-size="66" font-weight="700" fill="url(#goldGrad)" text-anchor="middle">T</text>
+</svg>
