@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import { motion, AnimatePresence, type Variants } from "framer-motion";
 import {
   ArrowRight,
   TrendingUp,
@@ -149,12 +150,33 @@ export default function Home() {
     { value: "35%+", label: "Tỷ Lệ Tối Ưu Biên Lợi Nhuận Ròng Trung Bình" },
   ];
 
+  // Animation variants
+  const fadeInUp: Variants = {
+    hidden: { opacity: 0, y: 25 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
+  };
+
+  const staggerContainer: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.1,
+      },
+    },
+  };
+
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-[#f5f0e8] selection:bg-[#c9a84c]/30 selection:text-[#f5f0e8] overflow-x-hidden">
       {/* Top Banner Accent */}
       <div className="h-1 w-full bg-gradient-to-r from-[#0a0a0a] via-[#c9a84c] to-[#0a0a0a]" />
 
-      {/* Navigation (Mobile-Optimized Luxury Glassmorphism) */}
+      {/* Navigation (Sticky Luxury Glassmorphism) */}
       <header className="sticky top-0 z-50 backdrop-blur-md bg-[#0a0a0a]/95 border-b border-[#222]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between gap-2">
           {/* Logo & Monogram */}
@@ -195,13 +217,15 @@ export default function Home() {
 
           {/* Action Buttons & Mobile Menu Toggle */}
           <div className="flex items-center gap-2 sm:gap-4 shrink-0">
-            <a
+            <motion.a
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
               href="#dang-ky"
               className="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2 sm:py-2.5 rounded text-[11px] sm:text-xs font-bold uppercase tracking-[0.08em] sm:tracking-[0.15em] bg-[#c9a84c] text-[#0a0a0a] hover:bg-[#dfc26a] shadow-[0_0_15px_rgba(201,168,76,0.3)] transition-all whitespace-nowrap"
             >
               <span>Đăng Ký Cố Vấn</span>
               <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0" />
-            </a>
+            </motion.a>
 
             {/* Mobile Hamburger Button */}
             <button
@@ -216,48 +240,56 @@ export default function Home() {
         </div>
 
         {/* Mobile Dropdown Menu Drawer */}
-        {mobileMenuOpen && (
-          <div className="md:hidden border-t border-[#222] bg-[#0a0a0a]/98 px-6 py-5 flex flex-col gap-4 text-xs uppercase tracking-[0.18em] font-medium animate-in slide-in-from-top-2">
-            <a
-              href="#thuc-trang"
-              onClick={() => setMobileMenuOpen(false)}
-              className="py-2 border-b border-[#1a1a1a] text-[#f5f0e8]/85 hover:text-[#c9a84c] transition-colors"
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.25, ease: "easeInOut" }}
+              className="md:hidden border-t border-[#222] bg-[#0a0a0a]/98 px-6 py-5 flex flex-col gap-4 text-xs uppercase tracking-[0.18em] font-medium overflow-hidden"
             >
-              1. Điểm Nghẽn Doanh Nghiệp
-            </a>
-            <a
-              href="#triet-ly"
-              onClick={() => setMobileMenuOpen(false)}
-              className="py-2 border-b border-[#1a1a1a] text-[#f5f0e8]/85 hover:text-[#c9a84c] transition-colors"
-            >
-              2. 4 Đòn Bẩy Tăng Trưởng
-            </a>
-            <a
-              href="#mo-hinh"
-              onClick={() => setMobileMenuOpen(false)}
-              className="py-2 border-b border-[#1a1a1a] text-[#f5f0e8]/85 hover:text-[#c9a84c] transition-colors"
-            >
-              3. 4 Gói Hợp Tác Cố Vấn
-            </a>
-            <a
-              href="#ve-tony"
-              onClick={() => setMobileMenuOpen(false)}
-              className="py-2 border-b border-[#1a1a1a] text-[#f5f0e8]/85 hover:text-[#c9a84c] transition-colors"
-            >
-              4. Hồ Sơ Cố Vấn Tony
-            </a>
-            <a
-              href="#dang-ky"
-              onClick={() => setMobileMenuOpen(false)}
-              className="py-2 text-[#c9a84c] font-bold"
-            >
-              5. Đăng Ký Trao Đổi 1-1 →
-            </a>
-          </div>
-        )}
+              <a
+                href="#thuc-trang"
+                onClick={() => setMobileMenuOpen(false)}
+                className="py-2 border-b border-[#1a1a1a] text-[#f5f0e8]/85 hover:text-[#c9a84c] transition-colors"
+              >
+                1. Điểm Nghẽn Doanh Nghiệp
+              </a>
+              <a
+                href="#triet-ly"
+                onClick={() => setMobileMenuOpen(false)}
+                className="py-2 border-b border-[#1a1a1a] text-[#f5f0e8]/85 hover:text-[#c9a84c] transition-colors"
+              >
+                2. 4 Đòn Bẩy Tăng Trưởng
+              </a>
+              <a
+                href="#mo-hinh"
+                onClick={() => setMobileMenuOpen(false)}
+                className="py-2 border-b border-[#1a1a1a] text-[#f5f0e8]/85 hover:text-[#c9a84c] transition-colors"
+              >
+                3. 4 Gói Hợp Tác Cố Vấn
+              </a>
+              <a
+                href="#ve-tony"
+                onClick={() => setMobileMenuOpen(false)}
+                className="py-2 border-b border-[#1a1a1a] text-[#f5f0e8]/85 hover:text-[#c9a84c] transition-colors"
+              >
+                4. Hồ Sơ Cố Vấn Tony
+              </a>
+              <a
+                href="#dang-ky"
+                onClick={() => setMobileMenuOpen(false)}
+                className="py-2 text-[#c9a84c] font-bold"
+              >
+                5. Đăng Ký Trao Đổi 1-1 →
+              </a>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </header>
 
-      {/* FULL-BLEED CINEMATIC HERO BANNER (Mobile-Responsive Aspect & Focal Point) */}
+      {/* FULL-BLEED CINEMATIC HERO BANNER WITH SMOOTH ENTRANCE */}
       <section className="relative min-h-[560px] sm:min-h-[640px] lg:min-h-[740px] flex items-center overflow-hidden border-b border-[#1c1c1c] bg-[#0a0a0a]">
         {/* Full-bleed Background Image */}
         <div className="absolute inset-0 z-0">
@@ -269,81 +301,119 @@ export default function Home() {
             className="object-cover object-[center_15%] sm:object-[70%_center] lg:object-right filter contrast-[1.05] brightness-[0.88] sm:brightness-95"
           />
           {/* Responsive Gradient Overlays */}
-          {/* Mobile Overlay: Vertical darkness */}
           <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/92 sm:via-[#0a0a0a]/70 to-[#0a0a0a]/40 sm:to-transparent" />
-          {/* Desktop Overlay: Horizontal Left darkness */}
           <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a] via-[#0a0a0a]/90 sm:via-[#0a0a0a]/80 lg:via-[#0a0a0a]/75 to-transparent to-85%" />
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10 w-full py-12 sm:py-20 lg:py-24">
-          <div className="max-w-2xl lg:max-w-3xl">
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={staggerContainer}
+            className="max-w-2xl lg:max-w-3xl"
+          >
             {/* Gold Eyebrow Badge */}
-            <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full border border-[#c9a84c]/40 bg-[#0a0a0a]/85 backdrop-blur-md text-[#c9a84c] text-[10px] sm:text-xs uppercase tracking-[0.16em] sm:tracking-[0.24em] mb-5 sm:mb-6 font-medium">
-              <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#c9a84c] shrink-0" />
+            <motion.div
+              variants={fadeInUp}
+              className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full border border-[#c9a84c]/40 bg-[#0a0a0a]/85 backdrop-blur-md text-[#c9a84c] text-[10px] sm:text-xs uppercase tracking-[0.16em] sm:tracking-[0.24em] mb-5 sm:mb-6 font-medium"
+            >
+              <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#c9a84c] shrink-0 animate-pulse" />
               <span>CỐ VẤN TĂNG TRƯỞNG DOANH THU THỰC CHIẾN</span>
-            </div>
+            </motion.div>
 
             {/* Main Grand Headline */}
-            <h1 className="font-serif text-3xl sm:text-5xl md:text-6xl lg:text-[68px] leading-[1.16] sm:leading-[1.12] text-[#f5f0e8] mb-5 sm:mb-6 drop-shadow-md">
+            <motion.h1
+              variants={fadeInUp}
+              className="font-serif text-3xl sm:text-5xl md:text-6xl lg:text-[68px] leading-[1.16] sm:leading-[1.12] text-[#f5f0e8] mb-5 sm:mb-6 drop-shadow-md"
+            >
               Bạn Đang Ở Gần Một Cú <br className="hidden sm:inline" />
               <span className="italic gold-gradient-text">Bứt Phá Doanh Thu</span> Hơn Bạn Nghĩ.
-            </h1>
+            </motion.h1>
 
             {/* Subtitle / Philosophy */}
-            <p className="text-sm sm:text-base md:text-lg text-[#f5f0e8]/85 leading-relaxed mb-8 sm:mb-10 font-light max-w-2xl">
+            <motion.p
+              variants={fadeInUp}
+              className="text-sm sm:text-base md:text-lg text-[#f5f0e8]/85 leading-relaxed mb-8 sm:mb-10 font-light max-w-2xl"
+            >
               Hầu hết các doanh nghiệp đang ngồi trên một <strong className="text-[#f5f0e8] font-medium">mỏ vàng gồm 3 đến 10 lần doanh thu tiềm ẩn</strong> mà không hề hay biết. 
               Tony đồng hành giúp bạn tìm ra chính xác những chỗ tiền đang ẩn nấp và kích hoạt chúng ngay lập tức.
-            </p>
+            </motion.p>
 
             {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 mb-6 sm:mb-8">
-              <a
+            <motion.div
+              variants={fadeInUp}
+              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 mb-6 sm:mb-8"
+            >
+              <motion.a
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
                 href="#dang-ky"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 sm:px-8 py-3.5 sm:py-4 rounded text-xs font-bold uppercase tracking-[0.16em] sm:tracking-[0.2em] bg-[#c9a84c] text-[#0a0a0a] hover:bg-[#dfc26a] shadow-[0_0_25px_rgba(201,168,76,0.35)] transition-all cursor-pointer text-center"
               >
                 <span>ỨNG TUYỂN CỐ VẤN CHIẾN LƯỢC</span>
                 <ArrowRight className="w-3.5 h-3.5 shrink-0" />
-              </a>
-              <a
+              </motion.a>
+              <motion.a
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 href="#triet-ly"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-7 py-3.5 sm:py-4 rounded text-xs font-semibold uppercase tracking-[0.16em] sm:tracking-[0.2em] border border-[#444] text-[#f5f0e8] hover:border-[#c9a84c] hover:text-[#c9a84c] bg-[#0a0a0a]/70 backdrop-blur-md transition-all text-center"
               >
                 <BookOpen className="w-3.5 h-3.5 shrink-0" />
                 <span>KHÁM PHÁ PHƯƠNG PHÁP</span>
-              </a>
-            </div>
+              </motion.a>
+            </motion.div>
 
             {/* Trust Assurance */}
-            <div className="flex items-center gap-2.5 text-xs text-[#f5f0e8]/65 font-light">
+            <motion.div
+              variants={fadeInUp}
+              className="flex items-center gap-2.5 text-xs text-[#f5f0e8]/65 font-light"
+            >
               <ShieldCheck className="w-4 h-4 text-[#c9a84c] shrink-0" />
               <span>Cam kết làm việc trực tiếp 1-1 & Bảo mật thông tin kinh doanh 100% (NDA).</span>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
-      {/* AUTHORITY STATS BAR (Mobile Responsive 2x2 Grid) */}
+      {/* AUTHORITY STATS BAR */}
       <section className="border-b border-[#1c1c1c] bg-[#080808] py-6 sm:py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            variants={staggerContainer}
+            className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6"
+          >
             {stats.map((stat, idx) => (
-              <div key={idx} className="flex flex-col items-center text-center p-2">
-                <span className="font-serif text-2xl sm:text-4xl lg:text-5xl font-bold text-[#c9a84c] mb-1">
+              <motion.div
+                key={idx}
+                variants={fadeInUp}
+                className="flex flex-col items-center text-center p-2 group"
+              >
+                <span className="font-serif text-2xl sm:text-4xl lg:text-5xl font-bold text-[#c9a84c] mb-1 group-hover:scale-105 transition-transform">
                   {stat.value}
                 </span>
                 <span className="text-[11px] sm:text-xs uppercase tracking-[0.1em] sm:tracking-[0.12em] text-[#f5f0e8]/60 max-w-[200px] leading-snug">
                   {stat.label}
                 </span>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Real Business Pain Points */}
       <section id="thuc-trang" className="py-16 sm:py-20 border-b border-[#1c1c1c] bg-[#0d0d0d]/70">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+          <motion.div
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center max-w-3xl mx-auto mb-10 sm:mb-14"
+          >
             <span className="text-[11px] sm:text-xs uppercase tracking-[0.2em] text-[#c9a84c] font-medium block mb-2 sm:mb-3">
               Thực Trạng Doanh Nghiệp
             </span>
@@ -351,13 +421,21 @@ export default function Home() {
               Có phải bạn đang đối mặt với{" "}
               <span className="italic text-[#c9a84c]">những cái bẫy này?</span>
             </h2>
-          </div>
+          </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-40px" }}
+            variants={staggerContainer}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6"
+          >
             {businessPainPoints.map((item, idx) => (
-              <div
+              <motion.div
                 key={idx}
-                className="p-5 sm:p-6 rounded bg-[#121212] border border-[#222] hover:border-[#c9a84c]/40 transition-all flex flex-col justify-between"
+                variants={fadeInUp}
+                whileHover={{ y: -4, borderColor: "rgba(201,168,76,0.45)" }}
+                className="p-5 sm:p-6 rounded bg-[#121212] border border-[#222] transition-all flex flex-col justify-between"
               >
                 <div>
                   <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#c9a84c]/10 text-[#c9a84c] font-mono text-xs flex items-center justify-center font-bold mb-3 sm:mb-4">
@@ -368,16 +446,22 @@ export default function Home() {
                   </h3>
                   <p className="text-xs text-[#f5f0e8]/65 leading-relaxed font-light">{item.desc}</p>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* The Core Growth Levers */}
       <section id="triet-ly" className="py-16 sm:py-24 border-b border-[#1c1c1c] relative">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-16 gap-4 sm:gap-6">
+          <motion.div
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-16 gap-4 sm:gap-6"
+          >
             <div>
               <span className="text-[11px] sm:text-xs uppercase tracking-[0.2em] text-[#c9a84c] font-medium block mb-2 sm:mb-3">
                 Phương Pháp Luận Cố Vấn
@@ -390,18 +474,26 @@ export default function Home() {
             <p className="text-xs sm:text-sm text-[#f5f0e8]/70 max-w-md leading-relaxed font-light">
               Không lý thuyết suông, không dùng thuật ngữ kỹ thuật phức tạp. Tất cả đều là giải pháp kinh doanh thực chiến có thể đo lường trực tiếp trên sổ sách kế toán.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-40px" }}
+            variants={staggerContainer}
+            className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8"
+          >
             {frameworks.map((fw, idx) => {
               const Icon = fw.icon;
               return (
-                <div
+                <motion.div
                   key={idx}
-                  className="p-6 sm:p-8 rounded bg-[#101010] border border-[#222] hover:border-[#c9a84c]/50 transition-all relative group"
+                  variants={fadeInUp}
+                  whileHover={{ y: -4, borderColor: "rgba(201,168,76,0.55)" }}
+                  className="p-6 sm:p-8 rounded bg-[#101010] border border-[#222] transition-all relative group"
                 >
                   <div className="flex items-start gap-4 sm:gap-5">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded bg-[#c9a84c]/10 border border-[#c9a84c]/30 flex items-center justify-center text-[#c9a84c] shrink-0 group-hover:scale-110 transition-transform">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded bg-[#c9a84c]/10 border border-[#c9a84c]/30 flex items-center justify-center text-[#c9a84c] shrink-0 group-hover:scale-110 group-hover:bg-[#c9a84c]/20 transition-all">
                       <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
                     </div>
                     <div>
@@ -412,17 +504,23 @@ export default function Home() {
                       <p className="text-xs sm:text-sm text-[#f5f0e8]/75 leading-relaxed font-light">{fw.desc}</p>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               );
             })}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Engagement Models (Tiered Advisory) */}
       <section id="mo-hinh" className="py-16 sm:py-24 border-b border-[#1c1c1c] bg-[#0c0c0c]/60">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center max-w-3xl mx-auto mb-12 sm:mb-16"
+          >
             <span className="text-[11px] sm:text-xs uppercase tracking-[0.2em] text-[#c9a84c] font-medium block mb-2 sm:mb-3">
               Mô Hình Hợp Tác
             </span>
@@ -432,12 +530,20 @@ export default function Home() {
             <p className="mt-3 sm:mt-4 text-[#f5f0e8]/70 text-xs sm:text-base leading-relaxed font-light">
               Tùy thuộc vào quy mô doanh thu hiện tại và bài toán cấp bách mà doanh nghiệp của bạn đang cần tháo gỡ.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-40px" }}
+            variants={staggerContainer}
+            className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8"
+          >
             {engagementModels.map((model) => (
-              <div
+              <motion.div
                 key={model.id}
+                variants={fadeInUp}
+                whileHover={{ y: -5 }}
                 className={`p-6 sm:p-10 rounded border flex flex-col justify-between transition-all ${
                   model.featured
                     ? "bg-[#14120e] border-[#c9a84c]/70 shadow-[0_0_30px_rgba(201,168,76,0.15)] relative"
@@ -482,7 +588,9 @@ export default function Home() {
                   </div>
                 </div>
 
-                <a
+                <motion.a
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                   href="#dang-ky"
                   className={`w-full inline-flex items-center justify-center gap-2 py-3.5 sm:py-4 rounded text-xs font-bold uppercase tracking-[0.18em] transition-all ${
                     model.featured
@@ -492,10 +600,10 @@ export default function Home() {
                 >
                   <span>{model.cta}</span>
                   <ArrowRight className="w-3.5 h-3.5" />
-                </a>
-              </div>
+                </motion.a>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -504,7 +612,13 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 items-center">
             {/* Portrait Card */}
-            <div className="lg:col-span-5 relative max-w-sm sm:max-w-md mx-auto w-full">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+              className="lg:col-span-5 relative max-w-sm sm:max-w-md mx-auto w-full"
+            >
               <div className="aspect-[3/4] rounded-2xl border border-[#c9a84c]/50 bg-[#161616] p-2 relative shadow-[0_0_35px_rgba(201,168,76,0.15)] group overflow-hidden">
                 <div className="relative w-full h-full rounded-xl overflow-hidden">
                   <Image
@@ -521,10 +635,16 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Biography & Approach */}
-            <div className="lg:col-span-7">
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+              className="lg:col-span-7"
+            >
               <span className="text-[11px] sm:text-xs uppercase tracking-[0.2em] text-[#c9a84c] font-medium block mb-2 sm:mb-3">
                 Hồ Sơ Cố Vấn
               </span>
@@ -558,7 +678,7 @@ export default function Home() {
                   </span>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -566,7 +686,13 @@ export default function Home() {
       {/* Application / Contact Form */}
       <section id="dang-ky" className="py-16 sm:py-24 border-b border-[#1c1c1c] bg-[#0d0d0d] relative">
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-8 sm:mb-12">
+          <motion.div
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-8 sm:mb-12"
+          >
             <span className="text-[11px] sm:text-xs uppercase tracking-[0.2em] text-[#c9a84c] font-medium block mb-2 sm:mb-3">
               Đăng Ký Trao Đổi Cố Vấn
             </span>
@@ -576,9 +702,15 @@ export default function Home() {
             <p className="mt-3 sm:mt-4 text-xs sm:text-sm text-[#f5f0e8]/70 max-w-xl mx-auto leading-relaxed font-light">
               Điền thông tin bên dưới để đăng ký buổi trao đổi sơ bộ 30 phút cùng Tony và đội ngũ trợ lý chiến lược.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="p-5 sm:p-10 md:p-12 rounded-xl bg-[#111] border border-[#2a2520] shadow-2xl relative">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.98 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="p-5 sm:p-10 md:p-12 rounded-xl bg-[#111] border border-[#2a2520] shadow-2xl relative"
+          >
             <form
               onSubmit={(e) => {
                 e.preventDefault();
@@ -665,20 +797,22 @@ export default function Home() {
                 ></textarea>
               </div>
 
-              <button
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 type="submit"
                 className="w-full py-4 rounded text-xs font-bold uppercase tracking-[0.2em] bg-[#c9a84c] text-[#0a0a0a] hover:bg-[#dfc26a] shadow-[0_0_25px_rgba(201,168,76,0.35)] transition-all flex items-center justify-center gap-2 cursor-pointer"
               >
                 <span>Gửi Thông Tin Đăng Ký Trao Đổi</span>
                 <ArrowRight className="w-4 h-4" />
-              </button>
+              </motion.button>
 
               <div className="flex items-center justify-center gap-2 text-[11px] sm:text-xs text-[#f5f0e8]/50 pt-2 font-light text-center">
-                <Lock className="w-3.5 h-3.5 text-[#c9a84c] shrink-0" />
+                <Lock className="w-3.5 h-3.5 text-[#c9a84c]" />
                 <span>Toàn bộ thông tin doanh nghiệp được bảo mật 100% theo tiêu chuẩn bảo mật NDA.</span>
               </div>
             </form>
-          </div>
+          </motion.div>
         </div>
       </section>
 
