@@ -144,10 +144,10 @@ export default function Home() {
   ];
 
   const stats = [
-    { value: "100+ Tỷ", label: "Doanh Thu Đã Tối Ưu & Tạo Ra Cho Khách Hàng" },
-    { value: "100+", label: "Chủ Doanh Nghiệp Đã Được Cố Vấn Trực Tiếp" },
-    { value: "18+", label: "Ngành Nghề Thực Tế (B2B, Bán Lẻ, Dịch Vụ, Sản Xuất)" },
-    { value: "35%+", label: "Tỷ Lệ Tối Ưu Biên Lợi Nhuận Ròng Trung Bình" },
+    { value: "20+ Tỷ", label: "Doanh Thu Đã Tối Ưu Cho Khách Hàng" },
+    { value: "30+", label: "Chủ Doanh Nghiệp Đã Được Cố Vấn Trực Tiếp" },
+    { value: "10+", label: "Ngành Nghề Thực Tế (B2B, Bán Lẻ, Dịch Vụ, Sản Xuất)" },
+    { value: "25%+", label: "Tỷ Lệ Tối Ưu Biên Lợi Nhuận Ròng Trung Bình" },
   ];
 
   // Animation variants
