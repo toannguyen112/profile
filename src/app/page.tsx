@@ -22,25 +22,13 @@ import {
   Clock,
   Briefcase,
   Lightbulb,
+  Menu,
+  X,
 } from "lucide-react";
 
 export default function Home() {
   const [selectedTier, setSelectedTier] = useState<string>("tier2");
-
-  const partners = [
-    { name: "Ford Long Khánh", file: "/images/partners/logo_1.png", alt: "Long Khanh Ford" },
-    { name: "Đồng Nai Ford", file: "/images/partners/logo_2.png", alt: "Dong Nai Ford" },
-    { name: "Cô Thảo Tôm Càng", file: "/images/partners/logo_3.png", alt: "Co Thao Tom Cang" },
-    { name: "SophPower", file: "/images/partners/logo_4.png", alt: "SophPower" },
-    { name: "UpTech", file: "/images/partners/logo_5.png", alt: "Uptech" },
-    { name: "Happy Book", file: "/images/partners/logo_6.png", alt: "Happy Book" },
-    { name: "FunkyStyle", file: "/images/partners/logo_7.png", alt: "Funkystyle" },
-    { name: "NTK Group", file: "/images/partners/logo_8.png", alt: "NTK" },
-    { name: "TOBI", file: "/images/partners/logo_9.png", alt: "TOBI" },
-    { name: "Cal & Đẹp", file: "/images/partners/logo_10.png", alt: "Cal&dep" },
-    { name: "Sip N Source", file: "/images/partners/logo_11.png", alt: "Sip N Source" },
-    { name: "CoreViral", file: "/images/partners/logo_12.png", alt: "Coreviral" },
-  ];
+  const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
 
   const engagementModels = [
     {
@@ -162,15 +150,16 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-[#f5f0e8] selection:bg-[#c9a84c]/30 selection:text-[#f5f0e8]">
+    <div className="min-h-screen bg-[#0a0a0a] text-[#f5f0e8] selection:bg-[#c9a84c]/30 selection:text-[#f5f0e8] overflow-x-hidden">
       {/* Top Banner Accent */}
       <div className="h-1 w-full bg-gradient-to-r from-[#0a0a0a] via-[#c9a84c] to-[#0a0a0a]" />
 
-      {/* Navigation (Sticky Luxury Glassmorphism) */}
-      <header className="sticky top-0 z-50 backdrop-blur-md bg-[#0a0a0a]/90 border-b border-[#222]">
-        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-          <a href="#" className="flex items-center gap-3 group">
-            <div className="relative w-10 h-10 rounded-full overflow-hidden border border-[#c9a84c] group-hover:shadow-[0_0_15px_rgba(201,168,76,0.5)] transition-all">
+      {/* Navigation (Mobile-Optimized Luxury Glassmorphism) */}
+      <header className="sticky top-0 z-50 backdrop-blur-md bg-[#0a0a0a]/95 border-b border-[#222]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between gap-2">
+          {/* Logo & Monogram */}
+          <a href="#" className="flex items-center gap-2.5 sm:gap-3 group shrink-0">
+            <div className="relative w-8 h-8 sm:w-10 sm:h-10 rounded-full overflow-hidden border border-[#c9a84c] group-hover:shadow-[0_0_15px_rgba(201,168,76,0.5)] transition-all shrink-0">
               <Image
                 src="/images/tony-avatar.jpg"
                 alt="Tony Portrait"
@@ -179,15 +168,16 @@ export default function Home() {
               />
             </div>
             <div className="flex flex-col">
-              <span className="font-serif tracking-[0.2em] uppercase text-base text-[#f5f0e8] font-bold">
+              <span className="font-serif tracking-[0.18em] sm:tracking-[0.2em] uppercase text-sm sm:text-base text-[#f5f0e8] font-bold leading-tight">
                 TONY
               </span>
-              <span className="text-[10px] tracking-[0.22em] text-[#c9a84c] uppercase font-mono">
-                Cố Vấn Tăng Trưởng Doanh Nghiệp
+              <span className="text-[9px] sm:text-[10px] tracking-[0.14em] sm:tracking-[0.22em] text-[#c9a84c] uppercase font-mono leading-tight whitespace-nowrap">
+                Cố Vấn Tăng Trưởng
               </span>
             </div>
           </a>
 
+          {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-8 text-xs uppercase tracking-[0.16em] text-[#f5f0e8]/80 font-medium">
             <a href="#thuc-trang" className="hover:text-[#c9a84c] transition-colors">
               Điểm Nghẽn
@@ -203,91 +193,145 @@ export default function Home() {
             </a>
           </nav>
 
-          <div className="flex items-center gap-4">
+          {/* Action Buttons & Mobile Menu Toggle */}
+          <div className="flex items-center gap-2 sm:gap-4 shrink-0">
             <a
               href="#dang-ky"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded text-xs font-semibold uppercase tracking-[0.15em] bg-[#c9a84c] text-[#0a0a0a] hover:bg-[#dfc26a] hover:shadow-[0_0_20px_rgba(201,168,76,0.4)] transition-all"
+              className="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2 sm:py-2.5 rounded text-[11px] sm:text-xs font-bold uppercase tracking-[0.08em] sm:tracking-[0.15em] bg-[#c9a84c] text-[#0a0a0a] hover:bg-[#dfc26a] shadow-[0_0_15px_rgba(201,168,76,0.3)] transition-all whitespace-nowrap"
             >
               <span>Đăng Ký Cố Vấn</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0" />
             </a>
+
+            {/* Mobile Hamburger Button */}
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden w-8 h-8 flex items-center justify-center rounded border border-[#333] text-[#f5f0e8] hover:border-[#c9a84c] transition-colors"
+              aria-label="Toggle Navigation Menu"
+            >
+              {mobileMenuOpen ? <X className="w-4 h-4 text-[#c9a84c]" /> : <Menu className="w-4 h-4" />}
+            </button>
           </div>
         </div>
+
+        {/* Mobile Dropdown Menu Drawer */}
+        {mobileMenuOpen && (
+          <div className="md:hidden border-t border-[#222] bg-[#0a0a0a]/98 px-6 py-5 flex flex-col gap-4 text-xs uppercase tracking-[0.18em] font-medium animate-in slide-in-from-top-2">
+            <a
+              href="#thuc-trang"
+              onClick={() => setMobileMenuOpen(false)}
+              className="py-2 border-b border-[#1a1a1a] text-[#f5f0e8]/85 hover:text-[#c9a84c] transition-colors"
+            >
+              1. Điểm Nghẽn Doanh Nghiệp
+            </a>
+            <a
+              href="#triet-ly"
+              onClick={() => setMobileMenuOpen(false)}
+              className="py-2 border-b border-[#1a1a1a] text-[#f5f0e8]/85 hover:text-[#c9a84c] transition-colors"
+            >
+              2. 4 Đòn Bẩy Tăng Trưởng
+            </a>
+            <a
+              href="#mo-hinh"
+              onClick={() => setMobileMenuOpen(false)}
+              className="py-2 border-b border-[#1a1a1a] text-[#f5f0e8]/85 hover:text-[#c9a84c] transition-colors"
+            >
+              3. 4 Gói Hợp Tác Cố Vấn
+            </a>
+            <a
+              href="#ve-tony"
+              onClick={() => setMobileMenuOpen(false)}
+              className="py-2 border-b border-[#1a1a1a] text-[#f5f0e8]/85 hover:text-[#c9a84c] transition-colors"
+            >
+              4. Hồ Sơ Cố Vấn Tony
+            </a>
+            <a
+              href="#dang-ky"
+              onClick={() => setMobileMenuOpen(false)}
+              className="py-2 text-[#c9a84c] font-bold"
+            >
+              5. Đăng Ký Trao Đổi 1-1 →
+            </a>
+          </div>
+        )}
       </header>
 
-      {/* FULL-BLEED CINEMATIC HERO BANNER (Abraham.com Exact Layout & Atmosphere) */}
-      <section className="relative min-h-[640px] lg:min-h-[740px] flex items-center overflow-hidden border-b border-[#1c1c1c] bg-[#0a0a0a]">
-        {/* Full-bleed Background Image with Tony Portrait on Right */}
+      {/* FULL-BLEED CINEMATIC HERO BANNER (Mobile-Responsive Aspect & Focal Point) */}
+      <section className="relative min-h-[560px] sm:min-h-[640px] lg:min-h-[740px] flex items-center overflow-hidden border-b border-[#1c1c1c] bg-[#0a0a0a]">
+        {/* Full-bleed Background Image */}
         <div className="absolute inset-0 z-0">
           <Image
             src="/images/hero-cinematic.jpg"
             alt="Tony - Strategic Growth Advisor Background"
             fill
             priority
-            className="object-cover object-[70%_center] lg:object-right filter contrast-[1.05] brightness-95"
+            className="object-cover object-[center_15%] sm:object-[70%_center] lg:object-right filter contrast-[1.05] brightness-[0.88] sm:brightness-95"
           />
-          {/* Deep Dark Gradient Overlay on Left for 100% Crisp Text Readability */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a] via-[#0a0a0a]/90 lg:via-[#0a0a0a]/75 to-transparent to-70%" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-90" />
+          {/* Responsive Gradient Overlays */}
+          {/* Mobile Overlay: Vertical darkness */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/92 sm:via-[#0a0a0a]/70 to-[#0a0a0a]/40 sm:to-transparent" />
+          {/* Desktop Overlay: Horizontal Left darkness */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a] via-[#0a0a0a]/90 sm:via-[#0a0a0a]/80 lg:via-[#0a0a0a]/75 to-transparent to-85%" />
         </div>
 
-        <div className="max-w-7xl mx-auto px-6 relative z-10 w-full py-16 sm:py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10 w-full py-12 sm:py-20 lg:py-24">
           <div className="max-w-2xl lg:max-w-3xl">
             {/* Gold Eyebrow Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#c9a84c]/40 bg-[#0a0a0a]/80 backdrop-blur-md text-[#c9a84c] text-xs uppercase tracking-[0.24em] mb-6 font-medium">
-              <Sparkles className="w-3.5 h-3.5 text-[#c9a84c]" />
-              <span>CỐ VẤN TĂNG TRƯỞNG & BỨT PHÁ DOANH THU THỰC CHIẾN</span>
+            <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full border border-[#c9a84c]/40 bg-[#0a0a0a]/85 backdrop-blur-md text-[#c9a84c] text-[10px] sm:text-xs uppercase tracking-[0.16em] sm:tracking-[0.24em] mb-5 sm:mb-6 font-medium">
+              <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#c9a84c] shrink-0" />
+              <span>CỐ VẤN TĂNG TRƯỞNG DOANH THU THỰC CHIẾN</span>
             </div>
 
-            {/* Main Grand Headline (Serif + Italic Gold) */}
-            <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-[68px] leading-[1.12] text-[#f5f0e8] mb-6 drop-shadow-lg">
+            {/* Main Grand Headline */}
+            <h1 className="font-serif text-3xl sm:text-5xl md:text-6xl lg:text-[68px] leading-[1.16] sm:leading-[1.12] text-[#f5f0e8] mb-5 sm:mb-6 drop-shadow-md">
               Bạn Đang Ở Gần Một Cú <br className="hidden sm:inline" />
               <span className="italic gold-gradient-text">Bứt Phá Doanh Thu</span> Hơn Bạn Nghĩ.
             </h1>
 
             {/* Subtitle / Philosophy */}
-            <p className="text-base sm:text-lg md:text-xl text-[#f5f0e8]/85 leading-relaxed mb-10 font-light max-w-2xl">
+            <p className="text-sm sm:text-base md:text-lg text-[#f5f0e8]/85 leading-relaxed mb-8 sm:mb-10 font-light max-w-2xl">
               Hầu hết các doanh nghiệp đang ngồi trên một <strong className="text-[#f5f0e8] font-medium">mỏ vàng gồm 3 đến 10 lần doanh thu tiềm ẩn</strong> mà không hề hay biết. 
               Tony đồng hành giúp bạn tìm ra chính xác những chỗ tiền đang ẩn nấp và kích hoạt chúng ngay lập tức.
             </p>
 
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 mb-8">
+            {/* Action Buttons */}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 mb-6 sm:mb-8">
               <a
                 href="#dang-ky"
-                className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded text-xs font-bold uppercase tracking-[0.2em] bg-[#c9a84c] text-[#0a0a0a] hover:bg-[#dfc26a] shadow-[0_0_25px_rgba(201,168,76,0.35)] hover:shadow-[0_0_35px_rgba(201,168,76,0.55)] transition-all cursor-pointer"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 sm:px-8 py-3.5 sm:py-4 rounded text-xs font-bold uppercase tracking-[0.16em] sm:tracking-[0.2em] bg-[#c9a84c] text-[#0a0a0a] hover:bg-[#dfc26a] shadow-[0_0_25px_rgba(201,168,76,0.35)] transition-all cursor-pointer text-center"
               >
                 <span>ỨNG TUYỂN CỐ VẤN CHIẾN LƯỢC</span>
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-3.5 h-3.5 shrink-0" />
               </a>
               <a
                 href="#triet-ly"
-                className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded text-xs font-semibold uppercase tracking-[0.2em] border border-[#444] text-[#f5f0e8] hover:border-[#c9a84c] hover:text-[#c9a84c] bg-[#0a0a0a]/70 backdrop-blur-md transition-all"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-7 py-3.5 sm:py-4 rounded text-xs font-semibold uppercase tracking-[0.16em] sm:tracking-[0.2em] border border-[#444] text-[#f5f0e8] hover:border-[#c9a84c] hover:text-[#c9a84c] bg-[#0a0a0a]/70 backdrop-blur-md transition-all text-center"
               >
-                <BookOpen className="w-4 h-4" />
+                <BookOpen className="w-3.5 h-3.5 shrink-0" />
                 <span>KHÁM PHÁ PHƯƠNG PHÁP</span>
               </a>
             </div>
 
             {/* Trust Assurance */}
-            <div className="flex items-center gap-3 text-xs text-[#f5f0e8]/60 font-light">
-              <ShieldCheck className="w-4 h-4 text-[#c9a84c]" />
+            <div className="flex items-center gap-2.5 text-xs text-[#f5f0e8]/65 font-light">
+              <ShieldCheck className="w-4 h-4 text-[#c9a84c] shrink-0" />
               <span>Cam kết làm việc trực tiếp 1-1 & Bảo mật thông tin kinh doanh 100% (NDA).</span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* AUTHORITY STATS BAR */}
-      <section className="border-b border-[#1c1c1c] bg-[#080808] py-8">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+      {/* AUTHORITY STATS BAR (Mobile Responsive 2x2 Grid) */}
+      <section className="border-b border-[#1c1c1c] bg-[#080808] py-6 sm:py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {stats.map((stat, idx) => (
-              <div key={idx} className="flex flex-col items-center text-center">
-                <span className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#c9a84c] mb-1">
+              <div key={idx} className="flex flex-col items-center text-center p-2">
+                <span className="font-serif text-2xl sm:text-4xl lg:text-5xl font-bold text-[#c9a84c] mb-1">
                   {stat.value}
                 </span>
-                <span className="text-xs uppercase tracking-[0.12em] text-[#f5f0e8]/60 max-w-[210px] leading-snug">
+                <span className="text-[11px] sm:text-xs uppercase tracking-[0.1em] sm:tracking-[0.12em] text-[#f5f0e8]/60 max-w-[200px] leading-snug">
                   {stat.label}
                 </span>
               </div>
@@ -297,29 +341,29 @@ export default function Home() {
       </section>
 
       {/* Real Business Pain Points */}
-      <section id="thuc-trang" className="py-20 border-b border-[#1c1c1c] bg-[#0d0d0d]/70">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center max-w-3xl mx-auto mb-14">
-            <span className="text-xs uppercase tracking-[0.25em] text-[#c9a84c] font-medium block mb-3">
+      <section id="thuc-trang" className="py-16 sm:py-20 border-b border-[#1c1c1c] bg-[#0d0d0d]/70">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+            <span className="text-[11px] sm:text-xs uppercase tracking-[0.2em] text-[#c9a84c] font-medium block mb-2 sm:mb-3">
               Thực Trạng Doanh Nghiệp
             </span>
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-[#f5f0e8] leading-tight">
+            <h2 className="font-serif text-2xl sm:text-4xl md:text-5xl text-[#f5f0e8] leading-tight">
               Có phải bạn đang đối mặt với{" "}
               <span className="italic text-[#c9a84c]">những cái bẫy này?</span>
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {businessPainPoints.map((item, idx) => (
               <div
                 key={idx}
-                className="p-6 rounded bg-[#121212] border border-[#222] hover:border-[#c9a84c]/40 transition-all flex flex-col justify-between"
+                className="p-5 sm:p-6 rounded bg-[#121212] border border-[#222] hover:border-[#c9a84c]/40 transition-all flex flex-col justify-between"
               >
                 <div>
-                  <div className="w-8 h-8 rounded-full bg-[#c9a84c]/10 text-[#c9a84c] font-mono text-xs flex items-center justify-center font-bold mb-4">
+                  <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#c9a84c]/10 text-[#c9a84c] font-mono text-xs flex items-center justify-center font-bold mb-3 sm:mb-4">
                     0{idx + 1}
                   </div>
-                  <h3 className="text-base font-semibold text-[#f5f0e8] mb-3 leading-snug">
+                  <h3 className="text-sm sm:text-base font-semibold text-[#f5f0e8] mb-2 sm:mb-3 leading-snug">
                     {item.title}
                   </h3>
                   <p className="text-xs text-[#f5f0e8]/65 leading-relaxed font-light">{item.desc}</p>
@@ -331,41 +375,41 @@ export default function Home() {
       </section>
 
       {/* The Core Growth Levers */}
-      <section id="triet-ly" className="py-24 border-b border-[#1c1c1c] relative">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+      <section id="triet-ly" className="py-16 sm:py-24 border-b border-[#1c1c1c] relative">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-16 gap-4 sm:gap-6">
             <div>
-              <span className="text-xs uppercase tracking-[0.25em] text-[#c9a84c] font-medium block mb-3">
+              <span className="text-[11px] sm:text-xs uppercase tracking-[0.2em] text-[#c9a84c] font-medium block mb-2 sm:mb-3">
                 Phương Pháp Luận Cố Vấn
               </span>
-              <h2 className="font-serif text-3xl sm:text-5xl text-[#f5f0e8] leading-tight">
+              <h2 className="font-serif text-2xl sm:text-4xl md:text-5xl text-[#f5f0e8] leading-tight">
                 4 Đòn Bẩy Giúp{" "}
                 <span className="italic gold-gradient-text">Bứt Phá Lợi Nhuận</span>
               </h2>
             </div>
-            <p className="text-sm text-[#f5f0e8]/70 max-w-md leading-relaxed font-light">
+            <p className="text-xs sm:text-sm text-[#f5f0e8]/70 max-w-md leading-relaxed font-light">
               Không lý thuyết suông, không dùng thuật ngữ kỹ thuật phức tạp. Tất cả đều là giải pháp kinh doanh thực chiến có thể đo lường trực tiếp trên sổ sách kế toán.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
             {frameworks.map((fw, idx) => {
               const Icon = fw.icon;
               return (
                 <div
                   key={idx}
-                  className="p-8 rounded bg-[#101010] border border-[#222] hover:border-[#c9a84c]/50 transition-all relative group"
+                  className="p-6 sm:p-8 rounded bg-[#101010] border border-[#222] hover:border-[#c9a84c]/50 transition-all relative group"
                 >
-                  <div className="flex items-start gap-5">
-                    <div className="w-12 h-12 rounded bg-[#c9a84c]/10 border border-[#c9a84c]/30 flex items-center justify-center text-[#c9a84c] shrink-0 group-hover:scale-110 transition-transform">
-                      <Icon className="w-6 h-6" />
+                  <div className="flex items-start gap-4 sm:gap-5">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded bg-[#c9a84c]/10 border border-[#c9a84c]/30 flex items-center justify-center text-[#c9a84c] shrink-0 group-hover:scale-110 transition-transform">
+                      <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
                     </div>
                     <div>
-                      <span className="text-[11px] uppercase tracking-[0.2em] text-[#c9a84c] font-mono block mb-1">
+                      <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.18em] text-[#c9a84c] font-mono block mb-1">
                         {fw.subtitle}
                       </span>
-                      <h3 className="font-serif text-2xl text-[#f5f0e8] mb-3">{fw.title}</h3>
-                      <p className="text-sm text-[#f5f0e8]/75 leading-relaxed font-light">{fw.desc}</p>
+                      <h3 className="font-serif text-xl sm:text-2xl text-[#f5f0e8] mb-2 sm:mb-3">{fw.title}</h3>
+                      <p className="text-xs sm:text-sm text-[#f5f0e8]/75 leading-relaxed font-light">{fw.desc}</p>
                     </div>
                   </div>
                 </div>
@@ -376,37 +420,37 @@ export default function Home() {
       </section>
 
       {/* Engagement Models (Tiered Advisory) */}
-      <section id="mo-hinh" className="py-24 border-b border-[#1c1c1c] bg-[#0c0c0c]/60">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="text-xs uppercase tracking-[0.25em] text-[#c9a84c] font-medium block mb-3">
+      <section id="mo-hinh" className="py-16 sm:py-24 border-b border-[#1c1c1c] bg-[#0c0c0c]/60">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+            <span className="text-[11px] sm:text-xs uppercase tracking-[0.2em] text-[#c9a84c] font-medium block mb-2 sm:mb-3">
               Mô Hình Hợp Tác
             </span>
-            <h2 className="font-serif text-3xl sm:text-5xl text-[#f5f0e8] leading-tight">
+            <h2 className="font-serif text-2xl sm:text-4xl md:text-5xl text-[#f5f0e8] leading-tight">
               4 Hình Thức <span className="italic gold-gradient-text">Cố Vấn Tác Chiến</span>
             </h2>
-            <p className="mt-4 text-[#f5f0e8]/70 text-base leading-relaxed font-light">
+            <p className="mt-3 sm:mt-4 text-[#f5f0e8]/70 text-xs sm:text-base leading-relaxed font-light">
               Tùy thuộc vào quy mô doanh thu hiện tại và bài toán cấp bách mà doanh nghiệp của bạn đang cần tháo gỡ.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
             {engagementModels.map((model) => (
               <div
                 key={model.id}
-                className={`p-8 sm:p-10 rounded border flex flex-col justify-between transition-all ${
+                className={`p-6 sm:p-10 rounded border flex flex-col justify-between transition-all ${
                   model.featured
                     ? "bg-[#14120e] border-[#c9a84c]/70 shadow-[0_0_30px_rgba(201,168,76,0.15)] relative"
                     : "bg-[#101010] border-[#262626] hover:border-[#c9a84c]/40"
                 }`}
               >
                 <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#c9a84c] font-semibold">
+                  <div className="flex items-center justify-between mb-3 sm:mb-4">
+                    <span className="text-[11px] sm:text-xs font-mono uppercase tracking-[0.18em] text-[#c9a84c] font-semibold">
                       {model.tier}
                     </span>
                     <span
-                      className={`text-[10px] uppercase tracking-[0.18em] px-3 py-1 rounded-full font-semibold ${
+                      className={`text-[9px] sm:text-[10px] uppercase tracking-[0.16em] px-2.5 sm:px-3 py-1 rounded-full font-semibold ${
                         model.featured
                           ? "bg-[#c9a84c] text-[#0a0a0a]"
                           : "border border-[#333] text-[#f5f0e8]/70"
@@ -416,22 +460,22 @@ export default function Home() {
                     </span>
                   </div>
 
-                  <h3 className="font-serif text-2xl sm:text-3xl text-[#f5f0e8] mb-1">{model.title}</h3>
-                  <p className="text-xs uppercase tracking-[0.14em] text-[#c9a84c] mb-6 font-medium">
+                  <h3 className="font-serif text-xl sm:text-3xl text-[#f5f0e8] mb-1">{model.title}</h3>
+                  <p className="text-[11px] sm:text-xs uppercase tracking-[0.12em] text-[#c9a84c] mb-4 sm:mb-6 font-medium">
                     {model.subtitle}
                   </p>
 
-                  <p className="text-sm text-[#f5f0e8]/75 leading-relaxed mb-8 font-light">
+                  <p className="text-xs sm:text-sm text-[#f5f0e8]/75 leading-relaxed mb-6 sm:mb-8 font-light">
                     {model.description}
                   </p>
 
-                  <div className="space-y-3 pt-6 border-t border-[#222] mb-8">
-                    <span className="text-[11px] uppercase tracking-[0.18em] text-[#f5f0e8]/60 font-semibold block mb-2">
+                  <div className="space-y-2.5 sm:space-y-3 pt-5 sm:pt-6 border-t border-[#222] mb-6 sm:mb-8">
+                    <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.16em] text-[#f5f0e8]/60 font-semibold block mb-2">
                       Quyền Lợi & Hạng Mục Cụ Thể:
                     </span>
                     {model.deliverables.map((item, i) => (
-                      <div key={i} className="flex items-start gap-3 text-sm text-[#f5f0e8]/85 font-light">
-                        <CheckCircle2 className="w-4 h-4 text-[#c9a84c] shrink-0 mt-0.5" />
+                      <div key={i} className="flex items-start gap-2.5 sm:gap-3 text-xs sm:text-sm text-[#f5f0e8]/85 font-light">
+                        <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#c9a84c] shrink-0 mt-0.5" />
                         <span>{item}</span>
                       </div>
                     ))}
@@ -440,14 +484,14 @@ export default function Home() {
 
                 <a
                   href="#dang-ky"
-                  className={`w-full inline-flex items-center justify-center gap-2 py-4 rounded text-xs font-bold uppercase tracking-[0.2em] transition-all ${
+                  className={`w-full inline-flex items-center justify-center gap-2 py-3.5 sm:py-4 rounded text-xs font-bold uppercase tracking-[0.18em] transition-all ${
                     model.featured
                       ? "bg-[#c9a84c] text-[#0a0a0a] hover:bg-[#dfc26a] shadow-[0_0_20px_rgba(201,168,76,0.3)]"
                       : "border border-[#3a3530] text-[#f5f0e8] hover:border-[#c9a84c] hover:text-[#c9a84c] bg-[#161616]"
                   }`}
                 >
                   <span>{model.cta}</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-3.5 h-3.5" />
                 </a>
               </div>
             ))}
@@ -456,11 +500,11 @@ export default function Home() {
       </section>
 
       {/* About Tony Section */}
-      <section id="ve-tony" className="py-24 border-b border-[#1c1c1c]">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <section id="ve-tony" className="py-16 sm:py-24 border-b border-[#1c1c1c]">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 items-center">
             {/* Portrait Card */}
-            <div className="lg:col-span-5 relative">
+            <div className="lg:col-span-5 relative max-w-sm sm:max-w-md mx-auto w-full">
               <div className="aspect-[3/4] rounded-2xl border border-[#c9a84c]/50 bg-[#161616] p-2 relative shadow-[0_0_35px_rgba(201,168,76,0.15)] group overflow-hidden">
                 <div className="relative w-full h-full rounded-xl overflow-hidden">
                   <Image
@@ -471,7 +515,7 @@ export default function Home() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-75" />
                   <div className="absolute bottom-4 left-4 right-4 text-center">
-                    <p className="text-xs text-[#f5f0e8]/80 italic leading-relaxed">
+                    <p className="text-[11px] sm:text-xs text-[#f5f0e8]/80 italic leading-relaxed">
                       "Thành công của doanh nghiệp đo bằng tỷ suất lợi nhuận thực tế và mức độ tự do của chính bạn."
                     </p>
                   </div>
@@ -481,14 +525,14 @@ export default function Home() {
 
             {/* Biography & Approach */}
             <div className="lg:col-span-7">
-              <span className="text-xs uppercase tracking-[0.25em] text-[#c9a84c] font-medium block mb-3">
+              <span className="text-[11px] sm:text-xs uppercase tracking-[0.2em] text-[#c9a84c] font-medium block mb-2 sm:mb-3">
                 Hồ Sơ Cố Vấn
               </span>
-              <h2 className="font-serif text-3xl sm:text-5xl text-[#f5f0e8] mb-6 leading-tight">
+              <h2 className="font-serif text-2xl sm:text-4xl md:text-5xl text-[#f5f0e8] mb-4 sm:mb-6 leading-tight">
                 Người Đồng Hành Chiến Lược Cho{" "}
                 <span className="italic gold-gradient-text">Các Chủ Doanh Nghiệp Thực Chiến</span>
               </h2>
-              <div className="space-y-4 text-sm sm:text-base text-[#f5f0e8]/75 leading-relaxed font-light mb-8">
+              <div className="space-y-3 sm:space-y-4 text-xs sm:text-base text-[#f5f0e8]/75 leading-relaxed font-light mb-6 sm:mb-8">
                 <p>
                   Tony không phải là một diễn giả nói chuyện truyền cảm hứng, cũng không cung cấp những bản báo cáo dày cộp chỉ để cất vào ngăn kéo.
                 </p>
@@ -500,15 +544,15 @@ export default function Home() {
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-6 border-t border-[#222]">
-                <div className="flex items-start gap-3">
-                  <Award className="w-5 h-5 text-[#c9a84c] shrink-0" />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 pt-5 sm:pt-6 border-t border-[#222]">
+                <div className="flex items-start gap-2.5 sm:gap-3">
+                  <Award className="w-4 h-4 sm:w-5 sm:h-5 text-[#c9a84c] shrink-0 mt-0.5" />
                   <span className="text-xs text-[#f5f0e8]/80 uppercase tracking-wider">
                     Đo lường bằng kết quả & dòng tiền thực tế
                   </span>
                 </div>
-                <div className="flex items-start gap-3">
-                  <Lock className="w-5 h-5 text-[#c9a84c] shrink-0" />
+                <div className="flex items-start gap-2.5 sm:gap-3">
+                  <Lock className="w-4 h-4 sm:w-5 sm:h-5 text-[#c9a84c] shrink-0 mt-0.5" />
                   <span className="text-xs text-[#f5f0e8]/80 uppercase tracking-wider">
                     Cam kết bảo mật tuyệt đối thông tin kinh doanh (NDA)
                   </span>
@@ -520,71 +564,71 @@ export default function Home() {
       </section>
 
       {/* Application / Contact Form */}
-      <section id="dang-ky" className="py-24 border-b border-[#1c1c1c] bg-[#0d0d0d] relative">
-        <div className="max-w-4xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <span className="text-xs uppercase tracking-[0.25em] text-[#c9a84c] font-medium block mb-3">
+      <section id="dang-ky" className="py-16 sm:py-24 border-b border-[#1c1c1c] bg-[#0d0d0d] relative">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-8 sm:mb-12">
+            <span className="text-[11px] sm:text-xs uppercase tracking-[0.2em] text-[#c9a84c] font-medium block mb-2 sm:mb-3">
               Đăng Ký Trao Đổi Cố Vấn
             </span>
-            <h2 className="font-serif text-3xl sm:text-5xl text-[#f5f0e8] leading-tight">
+            <h2 className="font-serif text-2xl sm:text-4xl md:text-5xl text-[#f5f0e8] leading-tight">
               Khám Sức Khỏe & <span className="italic gold-gradient-text">Bứt Phá Doanh Thu</span>
             </h2>
-            <p className="mt-4 text-sm text-[#f5f0e8]/70 max-w-xl mx-auto leading-relaxed font-light">
+            <p className="mt-3 sm:mt-4 text-xs sm:text-sm text-[#f5f0e8]/70 max-w-xl mx-auto leading-relaxed font-light">
               Điền thông tin bên dưới để đăng ký buổi trao đổi sơ bộ 30 phút cùng Tony và đội ngũ trợ lý chiến lược.
             </p>
           </div>
 
-          <div className="p-8 sm:p-12 rounded bg-[#111] border border-[#2a2520] shadow-2xl relative">
+          <div className="p-5 sm:p-10 md:p-12 rounded-xl bg-[#111] border border-[#2a2520] shadow-2xl relative">
             <form
               onSubmit={(e) => {
                 e.preventDefault();
                 alert("Cảm ơn bạn! Thông tin đã được gửi tới Tony. Trợ lý chiến lược sẽ liên hệ xác nhận lịch trao đổi trong vòng 24 giờ.");
               }}
-              className="space-y-6"
+              className="space-y-4 sm:space-y-6"
             >
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                 <div>
-                  <label className="block text-xs uppercase tracking-[0.15em] text-[#f5f0e8]/70 mb-2 font-medium">
+                  <label className="block text-xs uppercase tracking-[0.14em] text-[#f5f0e8]/70 mb-2 font-medium">
                     Họ và Tên Chủ Doanh Nghiệp *
                   </label>
                   <input
                     type="text"
                     required
                     placeholder="Ví dụ: Nguyễn Văn A"
-                    className="w-full px-4 py-3.5 rounded bg-[#0a0a0a] border border-[#2d2d2d] text-[#f5f0e8] text-sm focus:outline-none focus:border-[#c9a84c] transition-colors"
+                    className="w-full px-4 py-3.5 rounded bg-[#0a0a0a] border border-[#2d2d2d] text-[#f5f0e8] text-base sm:text-sm focus:outline-none focus:border-[#c9a84c] transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs uppercase tracking-[0.15em] text-[#f5f0e8]/70 mb-2 font-medium">
+                  <label className="block text-xs uppercase tracking-[0.14em] text-[#f5f0e8]/70 mb-2 font-medium">
                     Số Điện Thoại / Zalo *
                   </label>
                   <input
                     type="tel"
                     required
                     placeholder="Ví dụ: 0901 234 567"
-                    className="w-full px-4 py-3.5 rounded bg-[#0a0a0a] border border-[#2d2d2d] text-[#f5f0e8] text-sm focus:outline-none focus:border-[#c9a84c] transition-colors"
+                    className="w-full px-4 py-3.5 rounded bg-[#0a0a0a] border border-[#2d2d2d] text-[#f5f0e8] text-base sm:text-sm focus:outline-none focus:border-[#c9a84c] transition-colors"
                   />
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                 <div>
-                  <label className="block text-xs uppercase tracking-[0.15em] text-[#f5f0e8]/70 mb-2 font-medium">
+                  <label className="block text-xs uppercase tracking-[0.14em] text-[#f5f0e8]/70 mb-2 font-medium">
                     Tên Doanh Nghiệp / Lĩnh Vực Hoạt Động *
                   </label>
                   <input
                     type="text"
                     required
                     placeholder="Ví dụ: Công ty X - Sản xuất / Bán lẻ / Dịch vụ"
-                    className="w-full px-4 py-3.5 rounded bg-[#0a0a0a] border border-[#2d2d2d] text-[#f5f0e8] text-sm focus:outline-none focus:border-[#c9a84c] transition-colors"
+                    className="w-full px-4 py-3.5 rounded bg-[#0a0a0a] border border-[#2d2d2d] text-[#f5f0e8] text-base sm:text-sm focus:outline-none focus:border-[#c9a84c] transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs uppercase tracking-[0.15em] text-[#f5f0e8]/70 mb-2 font-medium">
+                  <label className="block text-xs uppercase tracking-[0.14em] text-[#f5f0e8]/70 mb-2 font-medium">
                     Doanh Thu Trung Bình Hàng Tháng
                   </label>
                   <select
-                    className="w-full px-4 py-3.5 rounded bg-[#0a0a0a] border border-[#2d2d2d] text-[#f5f0e8] text-sm focus:outline-none focus:border-[#c9a84c] transition-colors"
+                    className="w-full px-4 py-3.5 rounded bg-[#0a0a0a] border border-[#2d2d2d] text-[#f5f0e8] text-base sm:text-sm focus:outline-none focus:border-[#c9a84c] transition-colors"
                   >
                     <option value="under500">Dưới 500 triệu / tháng</option>
                     <option value="500to2b">Từ 500 triệu - 2 tỷ / tháng</option>
@@ -595,13 +639,13 @@ export default function Home() {
               </div>
 
               <div>
-                <label className="block text-xs uppercase tracking-[0.15em] text-[#f5f0e8]/70 mb-2 font-medium">
+                <label className="block text-xs uppercase tracking-[0.14em] text-[#f5f0e8]/70 mb-2 font-medium">
                   Hình thức Cố vấn bạn muốn tìm hiểu
                 </label>
                 <select
                   value={selectedTier}
                   onChange={(e) => setSelectedTier(e.target.value)}
-                  className="w-full px-4 py-3.5 rounded bg-[#0a0a0a] border border-[#2d2d2d] text-[#f5f0e8] text-sm focus:outline-none focus:border-[#c9a84c] transition-colors"
+                  className="w-full px-4 py-3.5 rounded bg-[#0a0a0a] border border-[#2d2d2d] text-[#f5f0e8] text-base sm:text-sm focus:outline-none focus:border-[#c9a84c] transition-colors"
                 >
                   <option value="tier1">Gói 01: Chẩn Đoán & Khám Sức Khỏe Doanh Nghiệp (Makeover Assessment)</option>
                   <option value="tier2">Gói 02: Phiên Cố Vấn Bứt Phá Doanh Thu 1-kèm-1 (Breakthrough Deep-Dive)</option>
@@ -611,26 +655,26 @@ export default function Home() {
               </div>
 
               <div>
-                <label className="block text-xs uppercase tracking-[0.15em] text-[#f5f0e8]/70 mb-2 font-medium">
+                <label className="block text-xs uppercase tracking-[0.14em] text-[#f5f0e8]/70 mb-2 font-medium">
                   Vấn đề hoặc mục tiêu lớn nhất bạn muốn giải quyết trong 3-6 tháng tới?
                 </label>
                 <textarea
                   rows={4}
                   placeholder="Ví dụ: Muốn tăng giá bán mà không mất khách, giảm bớt sự phụ thuộc vào quảng cáo, muốn xây dựng đội ngũ tự vận hành..."
-                  className="w-full px-4 py-3.5 rounded bg-[#0a0a0a] border border-[#2d2d2d] text-[#f5f0e8] text-sm focus:outline-none focus:border-[#c9a84c] transition-colors resize-none"
+                  className="w-full px-4 py-3.5 rounded bg-[#0a0a0a] border border-[#2d2d2d] text-[#f5f0e8] text-base sm:text-sm focus:outline-none focus:border-[#c9a84c] transition-colors resize-none"
                 ></textarea>
               </div>
 
               <button
                 type="submit"
-                className="w-full py-4 rounded text-xs font-bold uppercase tracking-[0.25em] bg-[#c9a84c] text-[#0a0a0a] hover:bg-[#dfc26a] shadow-[0_0_25px_rgba(201,168,76,0.35)] transition-all flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full py-4 rounded text-xs font-bold uppercase tracking-[0.2em] bg-[#c9a84c] text-[#0a0a0a] hover:bg-[#dfc26a] shadow-[0_0_25px_rgba(201,168,76,0.35)] transition-all flex items-center justify-center gap-2 cursor-pointer"
               >
                 <span>Gửi Thông Tin Đăng Ký Trao Đổi</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
 
-              <div className="flex items-center justify-center gap-2 text-xs text-[#f5f0e8]/50 pt-2 font-light">
-                <Lock className="w-3.5 h-3.5 text-[#c9a84c]" />
+              <div className="flex items-center justify-center gap-2 text-[11px] sm:text-xs text-[#f5f0e8]/50 pt-2 font-light text-center">
+                <Lock className="w-3.5 h-3.5 text-[#c9a84c] shrink-0" />
                 <span>Toàn bộ thông tin doanh nghiệp được bảo mật 100% theo tiêu chuẩn bảo mật NDA.</span>
               </div>
             </form>
@@ -639,9 +683,9 @@ export default function Home() {
       </section>
 
       {/* Executive Footer */}
-      <footer className="py-16 bg-[#070707] text-[#8a8070]">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+      <footer className="py-12 sm:py-16 bg-[#070707] text-[#8a8070]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 sm:gap-10 mb-10 sm:mb-12">
             <div className="md:col-span-2">
               <div className="flex items-center gap-3 mb-4">
                 <div className="relative w-8 h-8 rounded-full overflow-hidden border border-[#c9a84c]/60">
@@ -662,10 +706,10 @@ export default function Home() {
             </div>
 
             <div>
-              <span className="text-xs uppercase tracking-[0.2em] text-[#f5f0e8] font-semibold block mb-4">
+              <span className="text-xs uppercase tracking-[0.2em] text-[#f5f0e8] font-semibold block mb-3 sm:mb-4">
                 Danh Mục Cố Vấn
               </span>
-              <ul className="space-y-2.5 text-xs text-[#f5f0e8]/70 font-light">
+              <ul className="space-y-2 text-xs text-[#f5f0e8]/70 font-light">
                 <li>
                   <a href="#thuc-trang" className="hover:text-[#c9a84c] transition-colors">
                     Điểm Nghẽn Doanh Nghiệp
@@ -690,10 +734,10 @@ export default function Home() {
             </div>
 
             <div>
-              <span className="text-xs uppercase tracking-[0.2em] text-[#f5f0e8] font-semibold block mb-4">
+              <span className="text-xs uppercase tracking-[0.2em] text-[#f5f0e8] font-semibold block mb-3 sm:mb-4">
                 Cam Kết & Bảo Mật
               </span>
-              <ul className="space-y-2.5 text-xs text-[#f5f0e8]/70 font-light">
+              <ul className="space-y-2 text-xs text-[#f5f0e8]/70 font-light">
                 <li>Thỏa thuận bảo mật thông tin (NDA)</li>
                 <li>Nguyên tắc cố vấn & đạo đức nghề nghiệp</li>
                 <li>Chính sách bảo mật dữ liệu khách hàng</li>
@@ -701,7 +745,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="pt-8 border-t border-[#1a1a1a] flex flex-col sm:flex-row items-center justify-between text-xs text-[#f5f0e8]/40 gap-4 font-light">
+          <div className="pt-6 sm:pt-8 border-t border-[#1a1a1a] flex flex-col sm:flex-row items-center justify-between text-xs text-[#f5f0e8]/40 gap-3 font-light text-center sm:text-left">
             <p>© {new Date().getFullYear()} Tony Advisory. All rights reserved.</p>
             <p className="font-mono text-[11px] text-[#c9a84c]/80">
               Chiến Lược Tăng Trưởng Thực Chiến
